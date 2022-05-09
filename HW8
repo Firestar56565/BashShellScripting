@@ -1,0 +1,28 @@
+#!/bin/bash
+#Caden McBride
+#CI 201
+#This script takes three input log files, sorts them, filters out redundancies, and searches for "OPC, OPD, OPP, and OPS"
+#It will then print them to the screen.
+
+#Timestamp
+date > midspr22output.txt
+
+#-First loop [File selection]
+for i in midspr22log1.txt midspr22log2.txt midspr22log3.txt
+do
+
+#Date and file identification
+date >> midspr22output.txt
+echo >> midspr22output.txt "The following information is from the file: $i"
+
+
+echo -e "\n"
+echo -e "\n"
+#-------Second loop [Search parameters]
+	for j in OPC OPD OPP OPS
+	do
+	sort < $i | uniq | grep $j >> midspr22output.txt
+	done
+done
+#Print to terminal
+cat midspr22output.txt
