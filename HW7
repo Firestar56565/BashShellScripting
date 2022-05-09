@@ -1,0 +1,88 @@
+#!/bin/bash
+#Final Exam 5/5/22
+#Caden McBride
+
+
+#Initialize file with date. I chose not to append, I was unsure which the instructions called for.
+date > finalspr22output.txt
+echo "Program Start" >> finalspr22output.txt
+echo "------------" >> finalspr22output.txt
+function squares(){
+echo "------------" >> finalspr22output.txt
+echo "Square function called" >> finalspr22output.txt
+date >> finalspr22output.txt
+echo "------------" >> finalspr22output.txt
+local var1=$1
+local var2=$2
+echo "Numbers chosen: $1, $2"
+
+#Check for equality, then continue
+if [ $1 -eq $2 ]
+then #-------
+	echo "These two values are equal. Please choose a different set of numbers."
+	echo "$var1 and $var2 are equal. Please choose a different set of numbers." >> finalspr22output.txt
+	
+else #-------
+	#Determine which one is greater or lesser and assign new variables accordingly.
+	if [ $var1 -gt $var2 ]
+	then
+		local smallval=$var2
+		local greatval=$var1
+	else
+		local smallval=$var1
+		local greatval=$var2
+	fi
+
+	#Increment between values and calculate the square.
+	while [ $smallval -lt $(($greatval+1)) ]
+	do
+	
+		local squareval=$(($smallval*$smallval))
+		echo "The square of $smallval is $squareval."
+		echo "The square of $smallval is $squareval." >> finalspr22output.txt
+		smallval=$(($smallval+1)) #incrementor
+	done
+fi
+}
+
+i=0 #Used to break the main program loop
+inc=0 #Used to increment array values
+while [ $i -lt 1 ]
+do
+	#Prompt user for two input values.
+	echo "Please input your first number."
+	read input1
+	echo "Please input your second number."
+	read input2
+	
+	
+	#function call
+	squares $input1 $input2
+
+	#Asking if they wish to input more information.
+	echo "Would you like to input more numbers? (Please input a number corresponding to your choice.)"
+	#-------------
+	select userinput in Yes No
+	do
+	case $userinput in
+		"Yes" )
+		clear
+		echo "Program restarted."
+		break
+		;;
+		"No" )
+		echo "Program completed."
+		echo "All calculations have been read to /finalspr22output.txt"
+		i=1
+		break
+		;;
+		* )
+		echo "Error"
+		;;
+	esac
+	done
+	#-------------
+done
+echo "------------" >> finalspr22output.txt
+echo "Program Terminated" >> finalspr22output.txt
+echo "------------" >> finalspr22output.txt
